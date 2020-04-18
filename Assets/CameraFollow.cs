@@ -4,40 +4,50 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-
     public static CameraFollow instance;
 
+    public PlayerMovement playerCharacter;
+
     private Camera thisCamera;
-    private GameObject pointOfInterest;
     private Transform cameraTransform;
     private float cameraDistance;
+
+    private float verticalViewportThreshold = 0.3f;
+    private float horizontalViewportThreshold = 0.3f;
 
     void Awake()
     {
         CameraFollow.instance = this;
-        this.thisCamera = this.gameObject.GetComponent<Camera>();
+        this.thisCamera = this.gameObject.GetComponentInChildren<Camera>();
         this.cameraTransform = this.gameObject.transform;
-        this.cameraDistance = -this.cameraTransform.position.z;
+        this.cameraDistance = this.cameraTransform.position.z;
+    }
+
+    private bool IsPlayerPastHorizontalThreshold(float playerViewportXPosition)
+    {
+        return (playerViewportXPosition > (1.0f - this.horizontalViewportThreshold)) || 
+            (playerViewportXPosition < (0.0f + this.horizontalViewportThreshold));
     }
 
     void LateUpdate()
     {
-        if (this.pointOfInterest != null)
-        {
+        
+        Vector3 playerViewportPosition = thisCamera.WorldToViewportPoint(this.playerCharacter.gameObject.transform.position);
 
+        if (this.playerCharacter != null && (playerViewportPosition.y > this.verticalViewportThreshold || 
+            this.IsPlayerPastHorizontalThreshold(playerViewportPosition.x)))
+        {
             this.UpdateCameraPosition();
         }
     }
 
-    public void SetPointOfInterest(GameObject pointOfInterest)
-    {
-        this.pointOfInterest = pointOfInterest;
-    }
-
     private void UpdateCameraPosition()
     {
-        Vector3 worldSpaceCenterOfScreen = this.thisCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, this.cameraDistance));
-        Vector3 shiftVector = this.pointOfInterest.transform.position - worldSpaceCenterOfScreen;
-        this.cameraTransform.position = this.cameraTransform.position + shiftVector;
+        Vector3 worldSpaceCenteredPosition = this.thisCamera.ViewportToWorldPoint(new Vector3(0.5f, this.verticalViewportThreshold, this.cameraDistance));
+
+        Vector3 shiftVector = new Vector3(this.playerCharacter.transform.position.x - worldSpaceCenteredPosition.x, 
+            this.playerCharacter.transform.position.y - worldSpaceCenteredPosition.y, 0);
+
+        this.cameraTransform.Translate(shiftVector.normalized * this.playerCharacter.moveSpeed);
     }
 }
