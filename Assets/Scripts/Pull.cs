@@ -19,7 +19,7 @@ public class Pull : MonoBehaviour
 
     private void Update()
     {
-        if (isObjectInPullSource())
+        if (IsObjectInPullSource())
         {
             return;
         }
@@ -30,7 +30,7 @@ public class Pull : MonoBehaviour
         objectToPull.transform.Translate(Time.deltaTime * desiredPullVelocity.x, 0f, 0f, Space.World);
     }
 
-    private bool isObjectInPullSource()
+    private bool IsObjectInPullSource()
     {
         float objectToPullX = objectToPull.transform.position.x;
         bool isGreaterThanMin = objectToPullX > pullSourceBounds.min.x;
