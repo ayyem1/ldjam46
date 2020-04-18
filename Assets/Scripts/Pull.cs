@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Pulls an object along the X-Axis towards the gameobject
@@ -10,37 +8,33 @@ public class Pull : MonoBehaviour
 {
     [SerializeField] private GameObject objectToPull = null;
     [SerializeField] [Range(0f, 100f)] private float maxPullSpeed = 10f;
-    [SerializeField] [Range(0f, 100f)] private float maxAcceleration = 10f;
 
-    // Based on how far the player is from the path.
-    private Vector3 desiredPullVelocity = Vector3.zero;
-    private Vector3 currentPullVelocity = Vector3.zero;
+    private Bounds pullSourceBounds = new Bounds();
 
-    private void Update()
+    private void Start()
     {
-        Vector3 objectToPullPosition = objectToPull.transform.position;
-        // We'll pull along the X-axis so we'll keep the y and z of
-        // the object that is being pulled.
-        Vector3 pullTowardsPosition = new Vector3(transform.position.x, objectToPullPosition.y, objectToPullPosition.z);
-        
-        if (Mathf.Abs(pullTowardsPosition.x - objectToPullPosition.x) > Mathf.Epsilon)
-        {
-            desiredPullVelocity = (pullTowardsPosition - objectToPullPosition).normalized * maxPullSpeed;
-        }
-        else
-        {
-            // In our case, we don't want the player to be pulled past
-            // the pull source. IRL, this would happen due to momentum.
-            currentPullVelocity = Vector3.zero;
-            desiredPullVelocity = Vector3.zero;
-        }
+        MeshRenderer renderer = GetComponent<MeshRenderer>();
+        pullSourceBounds = renderer.bounds;
     }
 
     private void FixedUpdate()
     {
-        float maxSpeedChange = maxAcceleration * Time.deltaTime;
-        currentPullVelocity.x = Mathf.MoveTowards(currentPullVelocity.x, desiredPullVelocity.x, maxSpeedChange);
+        if (isObjectInPullSource())
+        {
+            return;
+        }
 
-        objectToPull.transform.Translate(Time.deltaTime * currentPullVelocity.x, 0f, 0f);
+        Vector3 pullDirection = transform.position.x > objectToPull.transform.position.x ? Vector3.right : Vector3.left;
+        Vector3 desiredPullVelocity = pullDirection * maxPullSpeed;
+
+        objectToPull.transform.Translate(Time.deltaTime * desiredPullVelocity.x, 0f, 0f, Space.World);
+    }
+
+    private bool isObjectInPullSource()
+    {
+        float objectToPullX = objectToPull.transform.position.x;
+        bool isGreaterThanMin = objectToPullX > pullSourceBounds.min.x;
+        bool isLessThanMax = objectToPullX < pullSourceBounds.max.x;
+        return isGreaterThanMin && isLessThanMax;
     }
 }
