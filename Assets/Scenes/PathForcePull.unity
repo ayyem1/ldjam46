@@ -154,6 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0
+  decelerationRate: 0.01
+  disableClick: 0
 --- !u!65 &117790653
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -222,7 +224,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117790651}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.655, z: 1.51}
+  m_LocalPosition: {x: 12.34, y: 0.655, z: 1.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1831799485}
@@ -576,8 +578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToPull: {fileID: 117790651}
-  maxPullSpeed: 10
-  maxAcceleration: 10
+  maxPullSpeed: 4
 --- !u!64 &1154772014
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -647,7 +648,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154772012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.01, z: 2.11}
+  m_LocalPosition: {x: 0, y: 0.03, z: 2.11}
   m_LocalScale: {x: 0.25, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
