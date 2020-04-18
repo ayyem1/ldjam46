@@ -676,7 +676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0196159ab51ec479d95b9dfe86be61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToPull: {fileID: 0}
+  objectToPull: {fileID: 450516043}
   maxHorizontalPullSpeed: 10
   maxVerticalPullSpeed: 1
 --- !u!64 &1579505448
