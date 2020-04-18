@@ -17,7 +17,7 @@ public class Pull : MonoBehaviour
         pullSourceBounds = renderer.bounds;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (isObjectInPullSource())
         {
