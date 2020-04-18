@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField, Range(0, 100)]
     private float maxSpeed = 10f;
-    private float minMagnitude = 0.5f;
+    [SerializeField, Range(0, 100)]
+    private float maxAcceleration = 10f;
+    [SerializeField, Range(0, 100)]
+    private float maxDeceleration = 1f;
     public Vector3 playerVelocity;
-    public float decelerationRate = 0.01f;
     public bool disableClick = false;
+
+    private Vector3 accelerationVector;
+
+    private void AccelerateTowardsDesiredVelocity(Vector3 desiredVelocity, float maxSpeedChange)
+    {
+        this.playerVelocity.x = Mathf.MoveTowards(playerVelocity.x, desiredVelocity.x, maxSpeedChange);
+        this.playerVelocity.z = Mathf.MoveTowards(playerVelocity.z, desiredVelocity.z, maxSpeedChange);
+    }
 
     void Update()
     {
@@ -23,23 +34,25 @@ public class PlayerMovement : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(mouseRay, out hit))
             {
-                Vector3 velocityVector = hit.point - this.transform.position;
+                Vector3 desiredDirection = hit.point - this.transform.position;
+                Vector3 desiredVelocity = desiredDirection.normalized * maxSpeed;
+                float maxSpeedChange = this.maxAcceleration * Time.deltaTime;
 
-                if (velocityVector.magnitude > this.minMagnitude)
-                {
-                    if (velocityVector.magnitude > this.maxSpeed)
-                    {
-                        velocityVector = velocityVector.normalized * this.maxSpeed;
-                    }
+                this.AccelerateTowardsDesiredVelocity(desiredVelocity, maxSpeedChange);
 
-                    Vector3 accelerationVector = velocityVector.normalized * this.maxSpeed;
-                    velocityVector += accelerationVector * Time.deltaTime;
-
-                    this.playerVelocity = velocityVector * Time.deltaTime;
-
-                    this.transform.localPosition += playerVelocity;
-                }
+                this.transform.localPosition += this.playerVelocity * Time.deltaTime;
             }
+        }
+        else if (this.playerVelocity.magnitude > 0)
+        {
+            float maxSpeedChange = this.maxDeceleration * Time.deltaTime;
+
+            this.AccelerateTowardsDesiredVelocity(Vector3.zero, maxSpeedChange);
+            if (this.playerVelocity.magnitude < 0)
+            {
+                this.playerVelocity = Vector3.zero;
+            }
+            this.transform.localPosition += this.playerVelocity * Time.deltaTime;
         }
     }
 }
