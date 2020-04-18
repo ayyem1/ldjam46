@@ -7,7 +7,8 @@
 public class Pull : MonoBehaviour
 {
     [SerializeField] private GameObject objectToPull = null;
-    [SerializeField] [Range(0f, 100f)] private float maxPullSpeed = 10f;
+    [SerializeField] [Range(0f, 100f)] private float maxHorizontalPullSpeed = 10f;
+    [SerializeField] [Range(0f, 100f)] private float maxVerticalPullSpeed = 1f;
 
     private Bounds pullSourceBounds = new Bounds();
 
@@ -21,11 +22,15 @@ public class Pull : MonoBehaviour
     {
         if (IsObjectInPullSource())
         {
+            if (!Input.anyKey)
+            {
+                objectToPull.transform.Translate(0f, 0f, Time.deltaTime * maxVerticalPullSpeed, Space.World);
+            }
             return;
         }
 
         Vector3 pullDirection = transform.position.x > objectToPull.transform.position.x ? Vector3.right : Vector3.left;
-        Vector3 desiredPullVelocity = pullDirection * maxPullSpeed;
+        Vector3 desiredPullVelocity = pullDirection * maxHorizontalPullSpeed;
 
         objectToPull.transform.Translate(Time.deltaTime * desiredPullVelocity.x, 0f, 0f, Space.World);
     }
