@@ -335,8 +335,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  maxAcceleration: 10
-  maxDeceleration: 1
+  maxAcceleration: 30
+  maxDeceleration: 10
   playerVelocity: {x: 0, y: 0, z: 0}
   disableClick: 0
 --- !u!135 &450516046
@@ -677,7 +677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToPull: {fileID: 450516043}
-  maxHorizontalPullSpeed: 3
+  maxHorizontalPullSpeed: 4
   maxVerticalPullSpeed: 1
 --- !u!64 &1579505448
 MeshCollider:
