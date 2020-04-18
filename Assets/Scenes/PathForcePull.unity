@@ -677,7 +677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToPull: {fileID: 450516043}
-  maxHorizontalPullSpeed: 10
+  maxHorizontalPullSpeed: 3
   maxVerticalPullSpeed: 1
 --- !u!64 &1579505448
 MeshCollider:
