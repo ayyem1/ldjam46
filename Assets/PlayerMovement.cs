@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.Raycast(mouseRay, out hit))
         {
             Vector3 movementVector = hit.point - this.transform.position;
-            this.transform.LookAt(hit.point, Vector3.forward);
+            this.transform.LookAt(hit.point, Vector3.up);
             if (movementVector.magnitude > this.minMagnitude)
             {
                 this.moveSpeed = movementVector.magnitude;
@@ -26,7 +26,10 @@ public class PlayerMovement : MonoBehaviour
 
                 this.moveSpeed = this.moveSpeed * Time.deltaTime;
 
-                this.transform.Translate(this.transform.up * this.moveSpeed);
+                Debug.DrawRay(this.transform.position, movementVector * 10, Color.red);
+                Debug.DrawRay(this.transform.position, movementVector * 10, Color.red);
+
+                this.transform.Translate(this.transform.forward * this.moveSpeed, Space.World);
             }
         }
     }

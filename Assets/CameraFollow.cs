@@ -20,7 +20,7 @@ public class CameraFollow : MonoBehaviour
         CameraFollow.instance = this;
         this.thisCamera = this.gameObject.GetComponentInChildren<Camera>();
         this.cameraTransform = this.gameObject.transform;
-        this.cameraDistance = this.cameraTransform.position.z;
+        this.cameraDistance = this.cameraTransform.position.y;
     }
 
     private bool IsPlayerPastHorizontalThreshold(float playerViewportXPosition)
@@ -43,10 +43,10 @@ public class CameraFollow : MonoBehaviour
 
     private void UpdateCameraPosition()
     {
-        Vector3 worldSpaceCenteredPosition = this.thisCamera.ViewportToWorldPoint(new Vector3(0.5f, this.verticalViewportThreshold, this.cameraDistance));
+        Vector3 worldSpaceCenteredPosition = this.thisCamera.ViewportToWorldPoint(new Vector3(0.5f, this.cameraDistance, this.verticalViewportThreshold));
 
-        Vector3 shiftVector = new Vector3(this.playerCharacter.transform.position.x - worldSpaceCenteredPosition.x, 
-            this.playerCharacter.transform.position.y - worldSpaceCenteredPosition.y, 0);
+        Vector3 shiftVector = new Vector3(this.playerCharacter.transform.position.x - worldSpaceCenteredPosition.x, 0,
+            this.playerCharacter.transform.position.z - worldSpaceCenteredPosition.z);
 
         this.cameraTransform.Translate(shiftVector.normalized * this.playerCharacter.moveSpeed);
     }
