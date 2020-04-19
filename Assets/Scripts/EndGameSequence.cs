@@ -51,6 +51,6 @@ public class EndGameSequence : MonoBehaviour
 
     private void RestartGame()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("StartingScene");
     }
 }
