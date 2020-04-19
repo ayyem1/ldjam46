@@ -32,18 +32,17 @@ public class PlayerMovement : MonoBehaviour, IPullable
         if (Input.GetKeyUp(KeyCode.Space))
         {
             oldWayEngaged = !oldWayEngaged;
+        }
 
-            if (oldWayEngaged)
-            {
-                this.maxAcceleration = 30f;
-                this.maxDeceleration = 15f;
-            }
-            else
-            {
-                this.maxAcceleration = 100f;
-                this.maxDeceleration = 30f;
-            }
-
+        if (oldWayEngaged)
+        {
+            this.maxAcceleration = 30f;
+            this.maxDeceleration = 15f;
+        }
+        else
+        {
+            this.maxAcceleration = 100f;
+            this.maxDeceleration = 30f;
         }
 
         if (this.oldWayEngaged == false)
