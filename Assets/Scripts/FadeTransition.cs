@@ -24,7 +24,7 @@ public class FadeTransition : MonoBehaviour
 
     private IEnumerator FadePanelIn()
     {
-        for (float i = 0; i < 1; i += Time.deltaTime * 3.0f)
+        for (float i = 0; i < 1; i += Time.fixedDeltaTime * 3.0f)
         {
             this.fadePanel.color = new Color(this.fadePanel.color.r, this.fadePanel.color.b, this.fadePanel.color.g, i);
             yield return null;
@@ -40,7 +40,7 @@ public class FadeTransition : MonoBehaviour
 
     private IEnumerator FadePanelOut()
     {
-        for (float i = 1; i > 0; i -= Time.deltaTime * 3.0f)
+        for (float i = 1; i > 0; i -= Time.fixedDeltaTime * 3.0f)
         {
             this.fadePanel.color = new Color(this.fadePanel.color.r, this.fadePanel.color.b, this.fadePanel.color.g, i);
             yield return null;

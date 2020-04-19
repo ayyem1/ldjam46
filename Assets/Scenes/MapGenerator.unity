@@ -357,7 +357,7 @@ MonoBehaviour:
   maxSize: 10
   instantiatedObjects: []
   generationField: {fileID: 1975276835}
-  treeFolderName: Rigid Trees
+  treeFolderName: LooseTrees
 --- !u!4 &1975276837
 Transform:
   m_ObjectHideFlags: 0

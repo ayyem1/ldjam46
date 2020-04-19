@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BestGateMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: bee7482913baca747bb277c626fcaf1b,
+  m_Shader: {fileID: -6465566751694194690, guid: 63d4be3914b88ae42b44d890740ab2b3,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -62,7 +62,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_DF4A554F_Texture_1:
-        m_Texture: {fileID: 2800000, guid: ebb6e57ad08425e4f886eca0fa8afdbd, type: 3}
+        m_Texture: {fileID: 2800000, guid: e4c013639f06c444ba23e5cc6ed022fc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
