@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FresnelUnlit
-  m_Shader: {fileID: -6465566751694194690, guid: b005502a437232644bbecd27cfc9675b,
+  m_Shader: {fileID: -6465566751694194690, guid: f3f1abfe25999554a9f9a2f5838089a0,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
