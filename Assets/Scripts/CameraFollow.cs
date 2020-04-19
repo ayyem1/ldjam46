@@ -46,6 +46,14 @@ public class CameraFollow : MonoBehaviour
         Vector3 shiftVector = new Vector3(this.playerCharacter.transform.position.x - worldSpaceCenteredPosition.x, 0,
             this.playerCharacter.transform.position.z - worldSpaceCenteredPosition.z);
 
-        this.cameraTransform.Translate(shiftVector.normalized * this.playerCharacter.Body.velocity.magnitude * Time.deltaTime);
+        if (this.playerCharacter.oldWayEngaged == true)
+        {
+            this.cameraTransform.Translate(shiftVector.normalized * this.playerCharacter.playerVelocity.magnitude * Time.deltaTime);
+        }
+        else
+        {
+            this.cameraTransform.Translate(shiftVector.normalized * this.playerCharacter.Body.velocity.magnitude * Time.deltaTime);
+        }
+        
     }
 }

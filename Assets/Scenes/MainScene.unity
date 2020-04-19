@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3519,7 +3519,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &432666961
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3802,6 +3802,8 @@ MonoBehaviour:
   maxSpeed: 10
   maxAcceleration: 30
   maxDeceleration: 15
+  playerVelocity: {x: 0, y: 0, z: 0}
+  oldWayEngaged: 0
 --- !u!135 &450516046
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -13360,7 +13362,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1633995074
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18100,7 +18102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &2097483942
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -9,10 +9,12 @@ public class PlayerMovement : MonoBehaviour, IPullable
     [SerializeField, Range(0, 100)]
     private float maxDeceleration = 10f;
 
-    private Vector3 playerVelocity;
+    public Vector3 playerVelocity;
     private Vector3 pullVelocity;
 
     public Rigidbody Body { get; private set; }
+
+    public bool oldWayEngaged = false;
 
     private void Start()
     {
@@ -27,7 +29,28 @@ public class PlayerMovement : MonoBehaviour, IPullable
 
     private void Update()
     {
-        playerVelocity = Body.velocity;
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            oldWayEngaged = !oldWayEngaged;
+
+            if (oldWayEngaged)
+            {
+                this.maxAcceleration = 30f;
+                this.maxDeceleration = 15f;
+            }
+            else
+            {
+                this.maxAcceleration = 100f;
+                this.maxDeceleration = 30f;
+            }
+
+        }
+
+        if (this.oldWayEngaged == false)
+        {
+            playerVelocity = Body.velocity;
+        }
+        
         if (Input.GetMouseButton(0))
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -39,8 +62,11 @@ public class PlayerMovement : MonoBehaviour, IPullable
                 float maxSpeedChange = this.maxAcceleration * Time.deltaTime;
 
                 this.AccelerateTowardsDesiredVelocity(desiredVelocity, maxSpeedChange);
-
-                //this.transform.localPosition += this.playerVelocity * Time.deltaTime;
+                if (oldWayEngaged == true)
+                {
+                    this.transform.localPosition += this.playerVelocity * Time.deltaTime;
+                }
+                
             }
         }
         else if (this.playerVelocity.magnitude > 0 || this.pullVelocity.magnitude > 0)
@@ -53,13 +79,25 @@ public class PlayerMovement : MonoBehaviour, IPullable
                 this.playerVelocity = Vector3.zero;
             }
 
-            //this.transform.localPosition += this.playerVelocity * Time.deltaTime;
+            if (oldWayEngaged == true)
+            {
+                this.transform.localPosition += this.playerVelocity * Time.deltaTime;
+            }
+            
         }
     }
 
     private void FixedUpdate()
     {
-        Body.velocity = playerVelocity;
+        if (oldWayEngaged == false)
+        {
+            Body.velocity = playerVelocity;
+        }
+        else
+        {
+            Body.velocity = Vector3.zero;
+        }
+        
     }
 
     public void SetPullVelocity(Vector3 pullVelocity)
