@@ -5,9 +5,9 @@ public class PlayerMovement : MonoBehaviour, IPullable
     [SerializeField, Range(0, 100)]
     private float maxSpeed = 10f;
     [SerializeField, Range(0, 100)]
-    private float maxAcceleration = 10f;
+    private float maxAcceleration = 30f;
     [SerializeField, Range(0, 100)]
-    private float maxDeceleration = 1f;
+    private float maxDeceleration = 10f;
     public Vector3 playerVelocity;
     public bool disableClick = false;
 
