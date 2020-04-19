@@ -150,15 +150,15 @@ TextMesh:
   m_GameObject: {fileID: 195489932}
   m_Text: Name
   m_OffsetZ: 0
-  m_CharacterSize: 1
+  m_CharacterSize: 0.3
   m_LineSpacing: 1
   m_Anchor: 6
   m_Alignment: 1
   m_TabSize: 1
-  m_FontSize: 6
-  m_FontStyle: 0
+  m_FontSize: 45
+  m_FontStyle: 1
   m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: dfbd3651b5ba11a48a9ac2dd715faaa7, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -180,7 +180,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: dfbd3651b5ba11a48a9ac2dd715faaa7, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -209,7 +209,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195489932}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.041, y: 0.536, z: -0.5}
+  m_LocalPosition: {x: -0.041, y: 0.507, z: -0.5}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 1888728608}
@@ -227,7 +227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c212e952af2034eba3cc58cc83a17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upVector: {x: 0, y: -1, z: 0}
 --- !u!1 &299845305
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,15 +950,15 @@ TextMesh:
 
     DialogDialogDialogDialogDialogDialogDialogDialogDialogDialog'
   m_OffsetZ: 0
-  m_CharacterSize: 1
+  m_CharacterSize: 0.3
   m_LineSpacing: 1
   m_Anchor: 0
   m_Alignment: 1
   m_TabSize: 1
-  m_FontSize: 8
-  m_FontStyle: 0
+  m_FontSize: 40
+  m_FontStyle: 1
   m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: dfbd3651b5ba11a48a9ac2dd715faaa7, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -981,7 +980,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: dfbd3651b5ba11a48a9ac2dd715faaa7, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1028,7 +1027,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c212e952af2034eba3cc58cc83a17d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upVector: {x: 0, y: -1, z: 0}
 --- !u!1 &1067195163
 GameObject:
   m_ObjectHideFlags: 0
