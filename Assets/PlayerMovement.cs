@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IPullable
 {
     [SerializeField, Range(0, 100)]
     private float maxSpeed = 10f;
@@ -13,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 playerVelocity;
     public bool disableClick = false;
 
-    private Vector3 accelerationVector;
+    private Vector3 pullVelocity;
 
     private void AccelerateTowardsDesiredVelocity(Vector3 desiredVelocity, float maxSpeedChange)
     {
@@ -23,11 +21,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            this.disableClick = !this.disableClick;
-        }
-
         if (Input.GetMouseButton(0) || this.disableClick)
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -39,20 +32,25 @@ public class PlayerMovement : MonoBehaviour
                 float maxSpeedChange = this.maxAcceleration * Time.deltaTime;
 
                 this.AccelerateTowardsDesiredVelocity(desiredVelocity, maxSpeedChange);
-
+                
                 this.transform.localPosition += this.playerVelocity * Time.deltaTime;
             }
         }
-        else if (this.playerVelocity.magnitude > 0)
+        else if (this.playerVelocity.magnitude > 0 || this.pullVelocity.magnitude > 0)
         {
             float maxSpeedChange = this.maxDeceleration * Time.deltaTime;
 
-            this.AccelerateTowardsDesiredVelocity(Vector3.zero, maxSpeedChange);
+            this.AccelerateTowardsDesiredVelocity(pullVelocity, maxSpeedChange);
             if (this.playerVelocity.magnitude < 0)
             {
                 this.playerVelocity = Vector3.zero;
             }
             this.transform.localPosition += this.playerVelocity * Time.deltaTime;
         }
+    }
+
+    public void SetPullVelocity(Vector3 pullVelocity)
+    {
+        this.pullVelocity = pullVelocity;
     }
 }

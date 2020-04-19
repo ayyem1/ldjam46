@@ -10,12 +10,22 @@ public class Pull : MonoBehaviour
     [SerializeField] [Range(0f, 100f)] private float maxHorizontalPullSpeed = 10f;
     [SerializeField] [Range(0f, 100f)] private float maxVerticalPullSpeed = 1f;
 
-    private Bounds pullSourceBounds = new Bounds();
+    private IPullable pullable = null;
+    private Bounds pullSourceBounds;
+    private Vector3 horizontalPullVelocity;
+    private Vector3 verticalPullVelocity;
+    private Vector3 currentPullDirection;
 
     private void Start()
     {
+        pullable = objectToPull.GetComponent<IPullable>();
+
         MeshRenderer renderer = GetComponent<MeshRenderer>();
         pullSourceBounds = renderer.bounds;
+
+        horizontalPullVelocity = Vector3.zero;
+        verticalPullVelocity = new Vector3(0f, 0f, maxVerticalPullSpeed);
+        currentPullDirection = Vector3.zero;
     }
 
     private void Update()
@@ -24,15 +34,20 @@ public class Pull : MonoBehaviour
         {
             if (!Input.anyKey)
             {
-                objectToPull.transform.Translate(0f, 0f, Time.deltaTime * maxVerticalPullSpeed, Space.World);
+                pullable.SetPullVelocity(verticalPullVelocity);
+                currentPullDirection = Vector3.forward;
             }
+
             return;
         }
 
-        Vector3 pullDirection = transform.position.x > objectToPull.transform.position.x ? Vector3.right : Vector3.left;
-        Vector3 desiredPullVelocity = pullDirection * maxHorizontalPullSpeed;
-
-        objectToPull.transform.Translate(Time.deltaTime * desiredPullVelocity.x, 0f, 0f, Space.World);
+        Vector3 newPullDirection = transform.position.x > objectToPull.transform.position.x ? Vector3.right : Vector3.left;
+        if (newPullDirection != currentPullDirection)
+        {
+            currentPullDirection = newPullDirection;
+            horizontalPullVelocity.x = currentPullDirection.x * maxHorizontalPullSpeed;
+            pullable.SetPullVelocity(horizontalPullVelocity);
+        }
     }
 
     private bool IsObjectInPullSource()
