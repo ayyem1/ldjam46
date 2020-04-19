@@ -6,28 +6,24 @@ using UnityEngine.UI;
 public class FadeTransition : MonoBehaviour
 {
     [SerializeField]
-    private Image fadePanel; 
+    private Image fadePanel;
 
-    public void FadeIn()
+    public delegate void FadeComplete();
+    public event FadeComplete fadeToBlackComplete;
+    public event FadeComplete fadeFromBlackComplete;
+
+    public void FadeToBlack()
     {
-
+        StartCoroutine(this.FadePanelIn());
     }
 
-    public void FadeOut()
+    public void FadeFromBlack()
     {
-
+        StartCoroutine(this.FadePanelOut());
     }
 
-    private IEnumerator DoFade()
+    private IEnumerator FadePanelIn()
     {
-        for (float i = 1; i > 0; i -= Time.deltaTime * 3.0f)
-        {
-            this.fadePanel.color = new Color(this.fadePanel.color.r, this.fadePanel.color.b, this.fadePanel.color.g, i);
-            yield return null;
-        }
-
-        yield return new WaitForSeconds(3.0f);
-
         for (float i = 0; i < 1; i += Time.deltaTime * 3.0f)
         {
             this.fadePanel.color = new Color(this.fadePanel.color.r, this.fadePanel.color.b, this.fadePanel.color.g, i);
@@ -35,5 +31,24 @@ public class FadeTransition : MonoBehaviour
         }
 
         this.fadePanel.color = Color.black;
+
+        if (this.fadeToBlackComplete != null)
+        {
+            this.fadeToBlackComplete();
+        }
+    }
+
+    private IEnumerator FadePanelOut()
+    {
+        for (float i = 1; i > 0; i -= Time.deltaTime * 3.0f)
+        {
+            this.fadePanel.color = new Color(this.fadePanel.color.r, this.fadePanel.color.b, this.fadePanel.color.g, i);
+            yield return null;
+        }
+
+        if (this.fadeFromBlackComplete != null)
+        {
+            this.fadeFromBlackComplete();
+        }
     }
 }

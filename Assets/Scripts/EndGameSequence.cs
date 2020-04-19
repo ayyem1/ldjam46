@@ -14,7 +14,10 @@ public class EndGameSequence : MonoBehaviour
     {
         if (this.showingEndGame && Input.GetMouseButtonDown(0))
         {
-            SceneManager.LoadScene("JPS");
+            this.showingEndGame = false;
+
+            GameManager.instance.fader.FadeToBlack();
+            GameManager.instance.fader.fadeToBlackComplete += this.RestartGame;
         }
     }
 
@@ -28,7 +31,26 @@ public class EndGameSequence : MonoBehaviour
 
     private void GoToEndGameState(GameObject playerObject)
     {
+        GameManager.instance.fader.FadeToBlack();
+        GameManager.instance.fader.fadeToBlackComplete += this.TransitionToBirdsEyeView;
+    }
+
+    private void TransitionToBirdsEyeView()
+    {
+        GameManager.instance.fader.fadeToBlackComplete -= this.TransitionToBirdsEyeView;
         this.endGameCameraObject.SetActive(true);
+        GameManager.instance.fader.FadeFromBlack();
+        GameManager.instance.fader.fadeFromBlackComplete += this.FinalizeEndgameState;
+    }
+
+    private void FinalizeEndgameState()
+    {
+        GameManager.instance.fader.fadeFromBlackComplete -= this.FinalizeEndgameState;
         this.showingEndGame = true;
+    }
+
+    private void RestartGame()
+    {
+        SceneManager.LoadScene("MainScene");
     }
 }
