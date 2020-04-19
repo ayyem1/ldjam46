@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour
 
     private float collectibleObtainHealthBoost = 50f;
 
-    private float maxScale = 3f;
+    public float maxScale = 3f;
     [SerializeField]
     private Transform playerGroundTransform = null;
     
@@ -59,13 +59,15 @@ public class PlayerManager : MonoBehaviour
         while (this.playerHealth < targetHealth)
         {
             this.playerHealth += this.healthGrowthRate;
+            if (this.playerHealth > this.maxPlayerHealth)
+            {
+                this.playerHealth = this.maxPlayerHealth;
+            }
+
             this.UpdateGroundTransform();
             yield return null;
         }
 
-        if (this.playerHealth > this.maxPlayerHealth)
-        {
-            this.playerHealth = this.maxPlayerHealth;
-        }
+        
     }
 }
