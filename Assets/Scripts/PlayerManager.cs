@@ -30,7 +30,7 @@ public class PlayerManager : MonoBehaviour
         this.playerLight.intensity = (this.playerHealth / this.maxPlayerHealth) * this.maxLightIntensity;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         this.playerHealth -= this.healthDecayRate;
         if (this.playerHealth < 0)
