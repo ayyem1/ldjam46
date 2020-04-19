@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -8,19 +9,22 @@ public class PlayerManager : MonoBehaviour
     private float maxPlayerHealth = 100f;
     [SerializeField, Range(0f, 100f)]
     private float playerHealth;
+    [SerializeField, Range(0f, 100f)] 
     private float healthDecayRate = 0.1f;
-    private float healthGrowRate = 0.5f; //Note: This must be bigger than healthDecayRate in order to exit the coroutine
+    [SerializeField, Range(0f, 100f)]
+    private float healthGrowthRate = 0.5f; //Note: This must be bigger than healthDecayRate in order to exit the coroutine
 
     private float collectibleObtainHealthBoost = 50f;
 
     private float maxLightIntensity = 10f;
     [SerializeField]
-    private Light playerLight;
+    private Light playerLight = null;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        Assert.IsTrue(healthGrowthRate > healthDecayRate);
         this.playerHealth = maxPlayerHealth;
         this.UpdateLightIntensity();
     }
@@ -33,11 +37,15 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
         this.playerHealth -= this.healthDecayRate;
-        if (this.playerHealth < 0)
+        if (this.playerHealth < 0f)
         {
-            this.playerHealth = 0;
+            this.playerHealth = 0f;
         }
         this.UpdateLightIntensity();
+        if (this.playerHealth <= 0f)
+        {
+            Debug.LogError("GAME OVER YEEAAAHH");
+        }
     }
 
     public void CollectibleObtained()
@@ -49,7 +57,7 @@ public class PlayerManager : MonoBehaviour
     {
         while (this.playerHealth < targetHealth)
         {
-            this.playerHealth += this.healthGrowRate;
+            this.playerHealth += this.healthGrowthRate;
             this.UpdateLightIntensity();
             yield return null;
         }

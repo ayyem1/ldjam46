@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 public class EndGameSequence : MonoBehaviour
 {
     [SerializeField]
-    private GameObject endGameCameraObject;
+    private GameObject endGameCameraObject = null;
+    [SerializeField]
+    private FadeTransition fader = null;
+
     private bool showingEndGame = false;
 
     // Update is called once per frame
@@ -16,8 +19,8 @@ public class EndGameSequence : MonoBehaviour
         {
             this.showingEndGame = false;
 
-            GameManager.instance.fader.FadeToBlack();
-            GameManager.instance.fader.fadeToBlackComplete += this.RestartGame;
+            fader.FadeToBlack();
+            fader.fadeToBlackComplete += this.RestartGame;
         }
     }
 
@@ -31,21 +34,21 @@ public class EndGameSequence : MonoBehaviour
 
     private void GoToEndGameState(GameObject playerObject)
     {
-        GameManager.instance.fader.FadeToBlack();
-        GameManager.instance.fader.fadeToBlackComplete += this.TransitionToBirdsEyeView;
+        fader.FadeToBlack();
+        fader.fadeToBlackComplete += this.TransitionToBirdsEyeView;
     }
 
     private void TransitionToBirdsEyeView()
     {
-        GameManager.instance.fader.fadeToBlackComplete -= this.TransitionToBirdsEyeView;
+        fader.fadeToBlackComplete -= this.TransitionToBirdsEyeView;
         this.endGameCameraObject.SetActive(true);
-        GameManager.instance.fader.FadeFromBlack();
-        GameManager.instance.fader.fadeFromBlackComplete += this.FinalizeEndgameState;
+        fader.FadeFromBlack();
+        fader.fadeFromBlackComplete += this.FinalizeEndgameState;
     }
 
     private void FinalizeEndgameState()
     {
-        GameManager.instance.fader.fadeFromBlackComplete -= this.FinalizeEndgameState;
+        fader.fadeFromBlackComplete -= this.FinalizeEndgameState;
         this.showingEndGame = true;
     }
 
