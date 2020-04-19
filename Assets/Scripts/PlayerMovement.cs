@@ -8,8 +8,8 @@ public class PlayerMovement : MonoBehaviour, IPullable
     private float maxAcceleration = 30f;
     [SerializeField, Range(0, 100)]
     private float maxDeceleration = 10f;
+    
     public Vector3 playerVelocity;
-    public bool disableClick = false;
 
     private Vector3 pullVelocity;
 
@@ -19,9 +19,9 @@ public class PlayerMovement : MonoBehaviour, IPullable
         this.playerVelocity.z = Mathf.MoveTowards(playerVelocity.z, desiredVelocity.z, maxSpeedChange);
     }
 
-    void Update()
+    private void Update()
     {
-        if (Input.GetMouseButton(0) || this.disableClick)
+        if (Input.GetMouseButton(0))
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;

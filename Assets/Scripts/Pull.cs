@@ -16,6 +16,26 @@ public class Pull : MonoBehaviour
     private Vector3 verticalPullVelocity;
     private Vector3 currentPullDirection;
 
+    private bool isPullForcePaused = false;
+
+    private void Awake()
+    {
+        Waypoint.OnWaypointEntered = PausePullForce;
+        Waypoint.OnWayPointExited = UnpausePullForce;
+    }
+
+    private void PausePullForce()
+    {
+        isPullForcePaused = true;
+        pullable.SetPullVelocity(Vector3.zero);
+    }
+
+    private void UnpausePullForce()
+    {
+        isPullForcePaused = false;
+        pullable.SetPullVelocity(horizontalPullVelocity);
+    }
+
     private void Start()
     {
         pullable = objectToPull.GetComponent<IPullable>();
@@ -30,12 +50,17 @@ public class Pull : MonoBehaviour
 
     private void Update()
     {
+        if (isPullForcePaused)
+        {
+            return;
+        }
+
         if (IsObjectInPullSource())
         {
             if (!Input.anyKey)
             {
-                pullable.SetPullVelocity(verticalPullVelocity);
                 currentPullDirection = Vector3.forward;
+                pullable.SetPullVelocity(verticalPullVelocity);
             }
 
             return;
