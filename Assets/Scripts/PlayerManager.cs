@@ -16,9 +16,9 @@ public class PlayerManager : MonoBehaviour
 
     private float collectibleObtainHealthBoost = 50f;
 
-    private float maxLightIntensity = 10f;
+    private float maxScale = 3f;
     [SerializeField]
-    private Light playerLight = null;
+    private Transform playerGroundTransform = null;
     
 
     // Start is called before the first frame update
@@ -26,12 +26,13 @@ public class PlayerManager : MonoBehaviour
     {
         Assert.IsTrue(healthGrowthRate > healthDecayRate);
         this.playerHealth = maxPlayerHealth;
-        this.UpdateLightIntensity();
+        this.UpdateGroundTransform();
     }
 
-    private void UpdateLightIntensity()
+    private void UpdateGroundTransform()
     {
-        this.playerLight.intensity = (this.playerHealth / this.maxPlayerHealth) * this.maxLightIntensity;
+        float scaleSize = (this.playerHealth / this.maxPlayerHealth) * this.maxScale;
+        this.playerGroundTransform.localScale = new Vector3(scaleSize, this.playerGroundTransform.localScale.y, scaleSize);
     }
 
     private void Update()
@@ -41,7 +42,7 @@ public class PlayerManager : MonoBehaviour
         {
             this.playerHealth = 0f;
         }
-        this.UpdateLightIntensity();
+        this.UpdateGroundTransform();
         if (this.playerHealth <= 0f)
         {
             Debug.LogError("GAME OVER YEEAAAHH");
@@ -58,7 +59,7 @@ public class PlayerManager : MonoBehaviour
         while (this.playerHealth < targetHealth)
         {
             this.playerHealth += this.healthGrowthRate;
-            this.UpdateLightIntensity();
+            this.UpdateGroundTransform();
             yield return null;
         }
 
