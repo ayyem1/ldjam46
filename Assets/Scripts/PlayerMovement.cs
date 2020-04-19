@@ -8,10 +8,16 @@ public class PlayerMovement : MonoBehaviour, IPullable
     private float maxAcceleration = 30f;
     [SerializeField, Range(0, 100)]
     private float maxDeceleration = 10f;
-    
-    public Vector3 playerVelocity;
 
+    private Vector3 playerVelocity;
     private Vector3 pullVelocity;
+
+    public Rigidbody Body { get; private set; }
+
+    private void Start()
+    {
+        Body = GetComponent<Rigidbody>();
+    }
 
     private void AccelerateTowardsDesiredVelocity(Vector3 desiredVelocity, float maxSpeedChange)
     {
@@ -21,6 +27,7 @@ public class PlayerMovement : MonoBehaviour, IPullable
 
     private void Update()
     {
+        playerVelocity = Body.velocity;
         if (Input.GetMouseButton(0))
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -32,8 +39,8 @@ public class PlayerMovement : MonoBehaviour, IPullable
                 float maxSpeedChange = this.maxAcceleration * Time.deltaTime;
 
                 this.AccelerateTowardsDesiredVelocity(desiredVelocity, maxSpeedChange);
-                
-                this.transform.localPosition += this.playerVelocity * Time.deltaTime;
+
+                //this.transform.localPosition += this.playerVelocity * Time.deltaTime;
             }
         }
         else if (this.playerVelocity.magnitude > 0 || this.pullVelocity.magnitude > 0)
@@ -45,8 +52,14 @@ public class PlayerMovement : MonoBehaviour, IPullable
             {
                 this.playerVelocity = Vector3.zero;
             }
-            this.transform.localPosition += this.playerVelocity * Time.deltaTime;
+
+            //this.transform.localPosition += this.playerVelocity * Time.deltaTime;
         }
+    }
+
+    private void FixedUpdate()
+    {
+        Body.velocity = playerVelocity;
     }
 
     public void SetPullVelocity(Vector3 pullVelocity)
