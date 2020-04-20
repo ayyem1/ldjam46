@@ -5,4 +5,5 @@ public class WaypointInfo : ScriptableObject
 {
     public string waypointName = string.Empty;
     public string dialog = string.Empty;
+    public Sprite waypointImage;
 }
