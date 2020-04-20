@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour, IPullable
     {
         PlayerManager.OnPlayerHealthDepleted += PauseVelocityMovement;
         PlayerManager.OnPlayerHealthRestoredFromEmpty += ResumeVelocityMovement;
+
+        EndGameSequence.OnEndGameSequenceStarted += PauseVelocityMovement;
     }
 
     private void PauseVelocityMovement()
@@ -47,6 +49,8 @@ public class PlayerMovement : MonoBehaviour, IPullable
     {
         PlayerManager.OnPlayerHealthDepleted -= PauseVelocityMovement;
         PlayerManager.OnPlayerHealthRestoredFromEmpty -= ResumeVelocityMovement;
+
+        EndGameSequence.OnEndGameSequenceStarted -= PauseVelocityMovement;
     }
 
     private void Start()

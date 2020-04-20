@@ -34,12 +34,8 @@ public class PlayerManager : MonoBehaviour
     {
         Waypoint.OnWaypointEntered += PauseHealthDecay;
         Waypoint.OnWayPointExited += UnpauseHealthDecay;
-    }
 
-    private void OnDestroy()
-    {
-        Waypoint.OnWaypointEntered -= PauseHealthDecay;
-        Waypoint.OnWayPointExited -= UnpauseHealthDecay;
+        EndGameSequence.OnEndGameSequenceStarted += PauseHealthDecay;
     }
 
     public void PauseHealthDecay()
@@ -141,5 +137,13 @@ public class PlayerManager : MonoBehaviour
     public float GetPlayerHealth()
     {
         return this.playerHealth;
+    }
+
+    private void OnDestroy()
+    {
+        Waypoint.OnWaypointEntered -= PauseHealthDecay;
+        Waypoint.OnWayPointExited -= UnpauseHealthDecay;
+
+        EndGameSequence.OnEndGameSequenceStarted -= PauseHealthDecay;
     }
 }
