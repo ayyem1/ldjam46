@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 1921708247}
   - component: {fileID: 1921708248}
   - component: {fileID: 1921708249}
+  - component: {fileID: 1921708250}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -694,6 +695,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1921708250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921708243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa4ba3f2d39d3141a2cd720b46fc828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fader: {fileID: 726668769}
 --- !u!1 &2045450914
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,8 +741,8 @@ RectTransform:
   m_Father: {fileID: 1584307197}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.36963135, y: 0.4566947}
-  m_AnchorMax: {x: 0.6305253, y: 0.53579307}
+  m_AnchorMin: {x: 0.41717616, y: 0.4855242}
+  m_AnchorMax: {x: 0.5829805, y: 0.5357931}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

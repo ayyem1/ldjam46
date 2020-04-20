@@ -13,6 +13,8 @@ public class SubtitleManager : MonoBehaviour
     private Text messageText;
     [SerializeField]
     private Text titleText;
+    [SerializeField]
+    private GameObject endingObject;
 
     Coroutine currentlyDisplayingSubtitle;
 
@@ -44,6 +46,11 @@ public class SubtitleManager : MonoBehaviour
     public void DisplayTitle()
     {
         StartCoroutine(this.CycleFade(this.titleText));
+    }
+
+    public void DisplayEndingText()
+    {
+        StartCoroutine(this.FadeEndingIn());
     }
 
     private IEnumerator CycleFade(Text textObject)
@@ -78,5 +85,19 @@ public class SubtitleManager : MonoBehaviour
 
         this.messageText.text = newSubtitle;
         this.currentlyDisplayingSubtitle = StartCoroutine(this.CycleFade(this.messageText));
+    }
+
+    private IEnumerator FadeEndingIn()
+    {
+        Text[] endingTexts = this.endingObject.GetComponentsInChildren<Text>();
+
+        for (float i = 0; i < 1; i += Time.deltaTime * this.fadeRate)
+        {
+            foreach (Text currentText in endingTexts)
+            {
+                currentText.color = new Color(currentText.color.r, currentText.color.b, currentText.color.g, i);
+                yield return null;
+            }
+        }
     }
 }

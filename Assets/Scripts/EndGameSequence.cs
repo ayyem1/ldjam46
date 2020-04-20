@@ -63,6 +63,8 @@ public class EndGameSequence : MonoBehaviour
     {
         fader.fadeFromBlackComplete -= this.FinalizeEndgameState;
         this.showingEndGame = true;
+
+        SubtitleManager.instance.DisplayEndingText();
     }
 
     private void RestartGame()

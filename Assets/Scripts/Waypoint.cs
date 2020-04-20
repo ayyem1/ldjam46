@@ -30,7 +30,7 @@ public class Waypoint : MonoBehaviour
 
     private void Awake()
     {
-        EndGameSequence.OnEndGameSequenceStarted += DisableWaypointIfNotInteractedWith;
+        //EndGameSequence.OnEndGameSequenceStarted += DisableWaypointIfNotInteractedWith;
     }
 
     private void DisableWaypointIfNotInteractedWith()

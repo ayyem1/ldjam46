@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private Transform playerGroundTransform = null;
 
-    private float collectibleObtainHealthBoost = 50f;    
+    private float collectibleObtainHealthBoost = 25f;    
     // Health decay is currently paused when a player
     // is in a waypoint or when they have lost all
     // of their health and are being dragged back
