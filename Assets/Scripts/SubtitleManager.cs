@@ -70,8 +70,6 @@ public class SubtitleManager : MonoBehaviour
 
     private IEnumerator StartNewSubtitle(string newSubtitle)
     {
-        Debug.LogError("I'm here!!");
-
         for (float i = this.messageText.color.a; i >= 0; i -= Time.deltaTime * 3.0f)
         {
             this.messageText.color = new Color(messageText.color.r, messageText.color.b, messageText.color.g, i);
