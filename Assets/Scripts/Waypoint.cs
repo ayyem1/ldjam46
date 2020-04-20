@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEditor;
+using System.Collections;
 
 /// <summary>
 /// This script will display text and effects when
@@ -17,6 +18,8 @@ public class Waypoint : MonoBehaviour
     [SerializeField] public TextMesh dialogTextMesh = null;
     [SerializeField] public TextMesh waypointName = null;
     [SerializeField] public SpriteRenderer waypointSprite = null;
+    [SerializeField] public GameObject displayBeforeInteraction = null;
+
     private bool isPlayerInRange = false;
     private bool isDisabled = false;
 
@@ -57,7 +60,14 @@ public class Waypoint : MonoBehaviour
 
     public void Interact()
     {
+        StartCoroutine(DisplayEffects());
+    }
+
+    private IEnumerator DisplayEffects()
+    {
+        displayBeforeInteraction.SetActive(false);
+        waypointSprite.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.75f);
         SubtitleManager.instance.DisplaySubtitle(this.waypointInfo.dialog);
-        // TODO: Play Effects.
     }
 }

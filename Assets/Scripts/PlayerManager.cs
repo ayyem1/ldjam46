@@ -96,18 +96,17 @@ public class PlayerManager : MonoBehaviour
 
     public void CollectibleObtained()
     {
-        float targetHealth = this.playerHealth + this.collectibleObtainHealthBoost;
-        if (targetHealth > this.maxPlayerHealth)
-        {
-            targetHealth = this.maxPlayerHealth;
-        }
-
-        StartCoroutine(this.IncreasePlayerHealth(targetHealth));         
+        StartCoroutine(this.IncreasePlayerHealth(this.playerHealth + this.collectibleObtainHealthBoost));         
     }
 
 
     public IEnumerator IncreasePlayerHealth(float targetHealth, Action callback = null)
     {
+        if (targetHealth > this.maxPlayerHealth)
+        {
+            targetHealth = this.maxPlayerHealth;
+        }
+
         if (playerHealth <= 0f && targetHealth >= 0f)
         {
             isHealthDecayPaused = false;
