@@ -42,5 +42,8 @@ public class Collectible : MonoBehaviour
         {
             player.CollectibleObtained();
         }
+
+        // Temp: Remove this. Destroying the object for now.
+        Destroy(this.gameObject);
     }
 }

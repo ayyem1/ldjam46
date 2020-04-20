@@ -9,13 +9,10 @@ public class GameManager : MonoBehaviour
             if (instance == null)
             {
                 GameManager[] instances = FindObjectsOfType<GameManager>();
-                if (instances.Length == 0)
+                if (instances.Length != 1)
                 {
-                    throw new System.Exception("ERROR: Could not find an instance of the GameManager in the current scene. Please attach one to a gameobject.");
-                }
-                else if (instances.Length > 1)
-                {
-                    throw new System.Exception("ERROR: Found multiple instances of the GameManager in the current scene. Count=" + instances.Length);
+                    throw new System.Exception(
+                        $"Invalid number of GameManager instances in the current scene. Count={instances.Length}");
                 }
 
                 instance = instances[0];
@@ -27,20 +24,13 @@ public class GameManager : MonoBehaviour
 
     private static GameManager instance;
 
-    //public FadeTransition fader;
-
     static GameManager() { }
 
     private GameManager() { }
 
     private void Awake()
     {
+        // Do we need this?
         DontDestroyOnLoad(this);
-    }
-
-    // Start is called before the first frame update
-    private void Start()
-    {
-        //fader.FadeFromBlack();
     }
 }

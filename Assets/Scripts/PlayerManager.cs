@@ -1,10 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 public class PlayerManager : MonoBehaviour
 {
+    public static Action OnPlayerHealthDepleted;
+    public static Action OnPlayerHealthRestoredFromEmpty;
+    public static Action OnPlayerSpectating;
+
     [SerializeField, Range(0f, 100f)]
     private float maxPlayerHealth = 100f;
     [SerializeField, Range(0f, 100f)]
@@ -13,15 +18,41 @@ public class PlayerManager : MonoBehaviour
     private float healthDecayRate = 0.1f;
     [SerializeField, Range(0f, 100f)]
     private float healthGrowthRate = 0.5f; //Note: This must be bigger than healthDecayRate in order to exit the coroutine
-
-    private float collectibleObtainHealthBoost = 50f;
-
-    public float maxScale = 3f;
     [SerializeField]
     private Transform playerGroundTransform = null;
-    
 
-    // Start is called before the first frame update
+    private float collectibleObtainHealthBoost = 50f;    
+    // Health decay is currently paused when a player
+    // is in a waypoint or when they have lost all
+    // of their health and are being dragged back
+    // to the path.
+    private bool isHealthDecayPaused = false;
+    private IEnumerator displayHealthDepletedEffect = null;
+
+    public float maxScale = 3f;
+
+    private void Awake()
+    {
+        Waypoint.OnWaypointEntered += PauseHealthDecay;
+        Waypoint.OnWayPointExited += UnpauseHealthDecay;
+    }
+
+    private void OnDestroy()
+    {
+        Waypoint.OnWaypointEntered -= PauseHealthDecay;
+        Waypoint.OnWayPointExited -= UnpauseHealthDecay;
+    }
+
+    private void PauseHealthDecay()
+    {
+        isHealthDecayPaused = true;
+    }
+
+    private void UnpauseHealthDecay()
+    {
+        isHealthDecayPaused = false;
+    }
+
     void Start()
     {
         Assert.IsTrue(healthGrowthRate > healthDecayRate);
@@ -37,16 +68,31 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        this.playerHealth -= this.healthDecayRate;
+        if (isHealthDecayPaused == false)
+        {
+            this.playerHealth -= this.healthDecayRate;
+        }
+
         if (this.playerHealth < 0f)
         {
             this.playerHealth = 0f;
         }
         this.UpdateGroundTransform();
-        if (this.playerHealth <= 0f)
+        if (this.playerHealth <= 0f && !isHealthDecayPaused)
         {
-            Debug.LogError("GAME OVER YEEAAAHH");
+            // Player's health just became depleted.
+            isHealthDecayPaused = true;
+            OnPlayerHealthDepleted?.Invoke();
+            this.displayHealthDepletedEffect = DisplayHealthDepletedEffects();
+            StartCoroutine(this.displayHealthDepletedEffect);
         }
+    }
+
+    private IEnumerator DisplayHealthDepletedEffects()
+    {
+        // TODO: Replace this dummy code.
+        yield return new WaitForSeconds(2.0f);
+        OnPlayerSpectating?.Invoke();
     }
 
     public void CollectibleObtained()
@@ -56,6 +102,17 @@ public class PlayerManager : MonoBehaviour
 
     public IEnumerator IncreasePlayerHealth(float targetHealth)
     {
+        if (playerHealth <= 0f)
+        {
+            isHealthDecayPaused = false;
+            // We should prevent this in our game design,
+            // but if a player collects health while we are
+            // playing the health depleted animation, we will
+            // stop it.
+            StopCoroutine(this.displayHealthDepletedEffect);
+            OnPlayerHealthRestoredFromEmpty?.Invoke();
+        }
+
         while (this.playerHealth < targetHealth)
         {
             this.playerHealth += this.healthGrowthRate;

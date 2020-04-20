@@ -16,6 +16,29 @@ public class Waypoint : MonoBehaviour
     [SerializeField] private TextMesh dialogTextMesh = null;
     [SerializeField] private TextMesh waypointName = null;
     private bool isPlayerInRange = false;
+    private bool isDisabled = false;
+
+    private void Awake()
+    {
+        PlayerManager.OnPlayerHealthDepleted += DisableWaypoint;
+        PlayerManager.OnPlayerHealthRestoredFromEmpty += EnableWaypoint;
+    }
+
+    private void OnDestroy()
+    {
+        PlayerManager.OnPlayerHealthDepleted -= DisableWaypoint;
+        PlayerManager.OnPlayerHealthRestoredFromEmpty -= EnableWaypoint;
+    }
+
+    private void DisableWaypoint()
+    {
+        isDisabled = true;
+    }
+
+    private void EnableWaypoint()
+    {
+        isDisabled = false;
+    }
 
     private void Start()
     {
@@ -25,7 +48,7 @@ public class Waypoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Player")
+        if (isDisabled || other.gameObject.tag != "Player")
             return;
 
         OnWaypointEntered?.Invoke();
@@ -34,7 +57,7 @@ public class Waypoint : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag != "Player")
+        if (isDisabled || other.gameObject.tag != "Player")
             return;
 
         OnWayPointExited?.Invoke();
@@ -43,7 +66,7 @@ public class Waypoint : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1) && isPlayerInRange && !WasInteractedWith)
+        if (!isDisabled && Input.GetMouseButtonDown(1) && isPlayerInRange && !WasInteractedWith)
         {
             WasInteractedWith = true;
             Interact();
