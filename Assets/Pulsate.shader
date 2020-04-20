@@ -9,16 +9,18 @@
 	}
 		SubShader
 	{
+
+		Tags{ "RenderType" = "Transparent" }
+
 		CGINCLUDE
 #include "UnityCG.cginc"
-
-#pragma multi_compile_fog
 
 		struct appdata
 	{
 		float4 vertex : POSITION;
 		float3 normal : NORMAL;
 		float2 uv : TEXCOORD0;
+		float4 color : COLOR;
 	};
 
 	struct v2f
@@ -27,14 +29,12 @@
 		float4 vertex : SV_POSITION;
 		float3 normal : NORMAL;
 		float4 color : COLOR;
-		UNITY_FOG_COORDS(1)
 	};
 
 	sampler2D _MainTex;
 	float4 _MainTex_ST;
 	float _Intensity;
 	float _Frequency;
-	float4 _LightColor0;
 
 	v2f vert(appdata v)
 	{
@@ -47,10 +47,7 @@
 		float4 newVertex = mul(v.vertex, unity_ObjectToWorld) + _Intensity * ((float4(o.normal, 0.0) * sin(o.uv.x * _Frequency + _Time.w)) + (float4(o.normal, 0.0) * sin(o.uv.y * _Frequency + _Time.w)));
 		newVertex = mul(newVertex, unity_WorldToObject);
 		o.vertex = UnityObjectToClipPos(newVertex);
-		o.normal = normalize(newVertex);
-		float3 diffuse = _LightColor0.rgb * max(0.0, dot(o.normal, lightDirection));
-		o.color = float4(diffuse, 1.0);
-		UNITY_TRANSFER_FOG(o, o.vertex);
+		o.color = v.color;
 
 		return o;
 	}
@@ -66,8 +63,7 @@
 #pragma fragment frag
 
 		half4 frag(v2f i) : COLOR{
-		fixed4 col = tex2D(_MainTex, i.uv);// * i.color;
-	UNITY_APPLY_FOG(i.fogCoord, col);
+		fixed4 col = tex2D(_MainTex, i.uv) * i.color;
 	return col;
 	}
 		ENDCG
