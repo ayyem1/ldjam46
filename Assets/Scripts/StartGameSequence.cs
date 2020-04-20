@@ -10,15 +10,18 @@ public class StartGameSequence : MonoBehaviour
     [SerializeField]
     private Button startButton;
 
+    //oh ho ho hO HO HO HO HO HO!!!!
+    //I see I've piqued your curiousity as to the absolute tomfoolery I have
+    //done to make this work!  BEHOLD MY GENIUS!!!
     private void Start()
     {
-        this.fader.FadeFromBlack();   
+        this.fader.FadeToBlack();   
     }
 
     public void StartGame()
     {
-        this.fader.FadeToBlack();
-        this.fader.fadeToBlackComplete += this.TransitionToGameScreen;
+        this.fader.FadeFromBlack();
+        this.fader.fadeFromBlackComplete += this.TransitionToGameScreen;
         this.startButton.interactable = false;
     }
 
