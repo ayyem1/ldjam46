@@ -32,19 +32,22 @@ public class CameraFollow : MonoBehaviour
         
         Vector3 playerViewportPosition = thisCamera.WorldToViewportPoint(this.playerCharacter.gameObject.transform.position);
 
-        if (this.playerCharacter != null && (playerViewportPosition.y > this.verticalViewportThreshold || 
-            this.IsPlayerPastHorizontalThreshold(playerViewportPosition.x)))
+        if (this.playerCharacter != null && playerViewportPosition.y > this.verticalViewportThreshold)
         {
-            this.UpdateCameraPosition();
+            this.UpdateCameraVerticalPosition();
+        }
+
+        if (this.IsPlayerPastHorizontalThreshold(playerViewportPosition.x))
+        {
+            this.UpdateCameraHorizontalPosition();
         }
     }
 
-    private void UpdateCameraPosition()
+    private void UpdateCameraVerticalPosition()
     {
         Vector3 worldSpaceCenteredPosition = this.thisCamera.ViewportToWorldPoint(new Vector3(0.5f, this.cameraDistance, this.verticalViewportThreshold));
 
-        Vector3 shiftVector = new Vector3(this.playerCharacter.transform.position.x - worldSpaceCenteredPosition.x, 0,
-            this.playerCharacter.transform.position.z - worldSpaceCenteredPosition.z);
+        Vector3 shiftVector = new Vector3(0, 0, this.playerCharacter.transform.position.z - worldSpaceCenteredPosition.z);
 
         //if (this.playerCharacter.oldWayEngaged == true)
         //{
@@ -54,6 +57,15 @@ public class CameraFollow : MonoBehaviour
         //{
         //    this.cameraTransform.Translate(shiftVector.normalized * this.playerCharacter.Body.velocity.magnitude * Time.deltaTime);
         //}
-        this.cameraTransform.Translate(shiftVector.normalized * this.playerCharacter.Body.velocity.magnitude * Time.deltaTime);
+        this.cameraTransform.Translate(shiftVector.normalized * this.playerCharacter.Body.velocity.z * Time.deltaTime);
+    }
+
+    private void UpdateCameraHorizontalPosition()
+    {
+        Vector3 worldSpaceCenteredPosition = this.thisCamera.ViewportToWorldPoint(new Vector3(0.5f, this.cameraDistance, this.verticalViewportThreshold));
+
+        Vector3 shiftVector = new Vector3(this.playerCharacter.transform.position.x - worldSpaceCenteredPosition.x, 0, 0);
+
+        this.cameraTransform.Translate(shiftVector.normalized * Mathf.Abs(this.playerCharacter.Body.velocity.x) * Time.deltaTime);
     }
 }
