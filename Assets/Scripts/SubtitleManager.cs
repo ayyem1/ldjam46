@@ -11,8 +11,9 @@ public class SubtitleManager : MonoBehaviour
     private float fadeRate = 0.5f;
 
     [SerializeField]
-    private TextMeshProUGUI textMesh;
-
+    private TextMeshProUGUI messageMesh;
+    [SerializeField]
+    private TextMeshProUGUI titleMesh;
 
     // Start is called before the first frame update
     void Start()
@@ -21,16 +22,23 @@ public class SubtitleManager : MonoBehaviour
         {
             instance = this;
         }
+
+        this.DisplayTitle();
     }
 
     public void DisplaySubtitle(string subtitleText)
     {
-        this.textMesh.text = subtitleText;
+        this.messageMesh.text = subtitleText;
 
-        StartCoroutine(this.CycleFade());
+        StartCoroutine(this.CycleFade(this.messageMesh));
     }
 
-    private IEnumerator CycleFade()
+    public void DisplayTitle()
+    {
+        StartCoroutine(this.CycleFade(this.titleMesh));
+    }
+
+    private IEnumerator CycleFade(TextMeshProUGUI textMesh)
     {
         for (float i = 0; i < 1; i += Time.fixedDeltaTime * this.fadeRate)
         {
@@ -42,10 +50,8 @@ public class SubtitleManager : MonoBehaviour
 
         for (float i = 1; i >= 0; i -= Time.fixedDeltaTime * this.fadeRate)
         {
-            this.textMesh.color = new Color(textMesh.color.r, textMesh.color.b, textMesh.color.g, i);
+            textMesh.color = new Color(textMesh.color.r, textMesh.color.b, textMesh.color.g, i);
             yield return null;
         }
-
-
     }
 }

@@ -1,26 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StartGameSequence : MonoBehaviour
 {
     [SerializeField]
     private FadeTransition fader;
-    private bool gameStarted = false;
+
+    [SerializeField]
+    private Button startButton;
 
     private void Start()
     {
         this.fader.FadeFromBlack();   
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartGame()
     {
-        if (Input.GetMouseButtonUp(0) && this.gameStarted == false)
-        {
-            this.fader.FadeToBlack();
-            this.fader.fadeToBlackComplete += this.TransitionToGameScreen;
-            this.gameStarted = true;
-        }
+        this.fader.FadeToBlack();
+        this.fader.fadeToBlackComplete += this.TransitionToGameScreen;
+        this.startButton.interactable = false;
     }
 
     private void TransitionToGameScreen()

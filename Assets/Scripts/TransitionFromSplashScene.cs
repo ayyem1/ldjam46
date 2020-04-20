@@ -16,7 +16,9 @@ public class TransitionFromSplashScene : MonoBehaviour
 
   private IEnumerator TransitionAfterWait()
   {
-    yield return new WaitForSeconds(secondsToWaitBeforeTransition);
+
+
+        yield return new WaitForSeconds(secondsToWaitBeforeTransition);
 
     if (sceneToTransitionTo != string.Empty)
     {

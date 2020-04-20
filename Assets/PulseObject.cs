@@ -6,9 +6,12 @@ public class PulseObject : MonoBehaviour
 {
 
     [SerializeField]
-    private Text uiText;
+    private SpriteRenderer spriteRenderer;
 
     private float fadeSpeed = 1f;
+
+    private float visibleDuration = 10f;
+    private float delay = 3f;
 
     // Use this for initialization
     void Start()
@@ -19,11 +22,13 @@ public class PulseObject : MonoBehaviour
     // Update is called once per frame
     private IEnumerator Pulse()
     {
-        float alphaValue = 1.0f;
+        yield return new WaitForSeconds(this.delay);
+
+        float alphaValue = 0.0f;
 
         float finalValue = Mathf.Sin(alphaValue);
 
-        while (true)
+        for (float i = 0; i < this.visibleDuration; i += Time.deltaTime)
         {
             finalValue = Mathf.Sin(alphaValue);
 
@@ -31,9 +36,18 @@ public class PulseObject : MonoBehaviour
             {
                 finalValue = -finalValue;
             }
-            this.uiText.color = new Color(this.uiText.color.r, this.uiText.color.b, this.uiText.color.g, finalValue);
+            this.spriteRenderer.color = new Color(this.spriteRenderer.color.r, this.spriteRenderer.color.b, this.spriteRenderer.color.g, finalValue);
             alphaValue += Time.deltaTime * fadeSpeed;
             yield return null;
         }
+
+        while (this.spriteRenderer.color.a > 0)
+        {
+            this.spriteRenderer.color = Color.Lerp(this.spriteRenderer.color, new Color(this.spriteRenderer.color.r, this.spriteRenderer.color.b, this.spriteRenderer.color.g, 0), Time.deltaTime);
+            yield return null;
+        }
+
+        this.spriteRenderer.color = new Color(this.spriteRenderer.color.r, this.spriteRenderer.color.b, this.spriteRenderer.color.g, 0);
+
     }
 }
