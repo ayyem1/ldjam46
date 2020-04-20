@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PathText7
   m_EditorClassIdentifier: 
   waypointName: 
-  dialog: "I\u2019m bored. I hope this next thing brings feeling back."
-  waypointImage: {fileID: 21300000, guid: 1ff67a86556ba7d45a9c10df19e357f0, type: 3}
+  dialog: 'Did anyone tell you to stay on this path? '
+  waypointImage: {fileID: 21300000, guid: a98a99f8b4695ac4a89249f4021af49d, type: 3}

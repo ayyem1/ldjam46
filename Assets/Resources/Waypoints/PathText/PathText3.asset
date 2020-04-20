@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PathText3
   m_EditorClassIdentifier: 
   waypointName: 
-  dialog: "Don\u2019t worry about me, my horoscope said I will come into wealth soon."
-  waypointImage: {fileID: 21300000, guid: add9879af88495a4dbb35d8d5a5ba268, type: 3}
+  dialog: "Why\u2019d they make this so easy? "
+  waypointImage: {fileID: 21300000, guid: 320429bf0af3ad749bfbfcacb20797f0, type: 3}

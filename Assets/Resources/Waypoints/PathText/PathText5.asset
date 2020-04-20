@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PathText5
   m_EditorClassIdentifier: 
   waypointName: 
-  dialog: All of my friends keep telling me how happy they are.
-  waypointImage: {fileID: 21300000, guid: 39261aebfa7508f48b8d969d29772b81, type: 3}
+  dialog: 'I would be nowhere without the people I have in my life. '
+  waypointImage: {fileID: 21300000, guid: 617af953afcfbad4aa2da2eebb7efff7, type: 3}

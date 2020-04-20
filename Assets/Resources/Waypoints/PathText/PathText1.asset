@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: PathText1
   m_EditorClassIdentifier: 
   waypointName: 
-  dialog: "I\u2019m pretty sure my mom loves me enough, why haven\u2019t I gotten
-    what I want yet?"
-  waypointImage: {fileID: 21300000, guid: 617af953afcfbad4aa2da2eebb7efff7, type: 3}
+  dialog: "This may look easy but it\u2019s taken a lot of work to get here. "
+  waypointImage: {fileID: 21300000, guid: 48446b60a13fbd04ead218d969e17261, type: 3}
