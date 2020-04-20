@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEditor;
 
 /// <summary>
 /// This script will display text and effects when
@@ -12,9 +13,10 @@ public class Waypoint : MonoBehaviour
 
     public bool WasInteractedWith { get; private set; }
 
-    [SerializeField] private WaypointInfo waypointInfo = null;
-    [SerializeField] private TextMesh dialogTextMesh = null;
-    [SerializeField] private TextMesh waypointName = null;
+    [SerializeField] public WaypointInfo waypointInfo = null;
+    [SerializeField] public TextMesh dialogTextMesh = null;
+    [SerializeField] public TextMesh waypointName = null;
+    [SerializeField] public SpriteRenderer waypointSprite = null;
     private bool isPlayerInRange = false;
     private bool isDisabled = false;
 
@@ -44,6 +46,8 @@ public class Waypoint : MonoBehaviour
     {
         dialogTextMesh.text = waypointInfo.dialog;
         waypointName.text = waypointInfo.waypointName;
+        waypointSprite.sprite = waypointInfo.waypointImage;
+        dialogTextMesh.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
