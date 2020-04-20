@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ground
-  m_Shader: {fileID: -6465566751694194690, guid: b005502a437232644bbecd27cfc9675b,
+  m_Shader: {fileID: -6465566751694194690, guid: 07223d09cbbfa38478eea9f23c8f9e66,
     type: 3}
   m_ShaderKeywords: _GLOSSYREFLECTIONS_OFF
   m_LightmapFlags: 4
@@ -82,7 +82,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_F6A64CEE: -0.94
+    - Vector1_F6A64CEE: -0.78
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -109,8 +109,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Inner_Color: {r: 0, g: 0.053274192, b: 0.1509434, a: 1}
-    - Outer_Color: {r: 0.017025353, g: 0, b: 0.1981132, a: 0}
+    - Inner_Color: {r: 0, g: 0, b: 0, a: 1}
+    - Outer_Color: {r: 0.002963689, g: 0.0018689941, b: 0.05660379, a: 0}
     - Vector2_6A31C874: {r: 127, g: 127, b: 0.39, a: 0.29}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.07008081, g: 0, b: 0.4528302, a: 1}
