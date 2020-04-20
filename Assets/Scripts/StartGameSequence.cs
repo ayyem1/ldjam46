@@ -10,6 +10,9 @@ public class StartGameSequence : MonoBehaviour
     [SerializeField]
     private Button startButton;
 
+    [SerializeField]
+    private AudioSource startingSound;
+
     //oh ho ho hO HO HO HO HO HO!!!!
     //I see I've piqued your curiousity as to the absolute tomfoolery I have
     //done to make this work!  BEHOLD MY GENIUS!!!
@@ -23,6 +26,7 @@ public class StartGameSequence : MonoBehaviour
         this.fader.FadeFromBlack();
         this.fader.fadeFromBlackComplete += this.TransitionToGameScreen;
         this.startButton.interactable = false;
+        this.startingSound.Play();
     }
 
     private void TransitionToGameScreen()

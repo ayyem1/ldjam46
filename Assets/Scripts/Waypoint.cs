@@ -25,6 +25,9 @@ public class Waypoint : MonoBehaviour
     private bool isPlayerInRange = false;
     private bool isDisabled = false;
 
+    [SerializeField]
+    AudioSource audio;
+
     private void Awake()
     {
         EndGameSequence.OnEndGameSequenceStarted += DisableWaypointIfNotInteractedWith;
@@ -79,6 +82,10 @@ public class Waypoint : MonoBehaviour
     public void Interact()
     {
         StartCoroutine(DisplayEffects());
+
+        float pitchShift = UnityEngine.Random.Range(-0.5f, 0.5f);
+        this.audio.pitch += pitchShift;
+        this.audio.Play();
     }
 
     private IEnumerator DisplayEffects()

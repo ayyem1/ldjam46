@@ -17,6 +17,9 @@ public class Collectible : MonoBehaviour
     const string alphaThresholdName = "Vector1_49FF6D3F";
     private float fillRate = 3.0f;
 
+    [SerializeField]
+    private AudioSource audio;
+
     private void Start()
     {
         this.meshRenderer.material.SetFloat(alphaThresholdName, 1.0f);
@@ -50,7 +53,11 @@ public class Collectible : MonoBehaviour
     private void CollectibleObtained(GameObject playerObject)
     {
         this.state = CollectibleState.Collected;
-        //Do animation stuff here
+
+        float pitchShift = Random.Range(-0.5f, 0.5f);
+        this.audio.pitch += pitchShift;
+        this.audio.Play();
+
         PlayerManager player = playerObject.GetComponent<PlayerManager>();
 
         if (player != null)

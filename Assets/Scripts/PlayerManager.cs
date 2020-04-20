@@ -30,6 +30,9 @@ public class PlayerManager : MonoBehaviour
 
     public float maxScale = 3f;
 
+    [SerializeField]
+    AudioSource dyingSound;
+
     private void Awake()
     {
         Waypoint.OnWaypointEntered += PauseHealthDecay;
@@ -81,6 +84,14 @@ public class PlayerManager : MonoBehaviour
             OnPlayerHealthDepleted?.Invoke();
             this.displayHealthDepletedEffect = DisplayHealthDepletedEffects();
             StartCoroutine(this.displayHealthDepletedEffect);
+        }
+
+        if (!isDepletedToZero && this.GetPlayerHealth() < (this.maxPlayerHealth / 3))
+        {
+            if (!this.dyingSound.isPlaying)
+            {
+                this.dyingSound.Play();
+            }
         }
     }
 
