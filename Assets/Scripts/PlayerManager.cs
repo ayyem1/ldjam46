@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -43,12 +42,12 @@ public class PlayerManager : MonoBehaviour
         Waypoint.OnWayPointExited -= UnpauseHealthDecay;
     }
 
-    private void PauseHealthDecay()
+    public void PauseHealthDecay()
     {
         isHealthDecayPaused = true;
     }
 
-    private void UnpauseHealthDecay()
+    public void UnpauseHealthDecay()
     {
         isHealthDecayPaused = false;
     }
@@ -100,9 +99,10 @@ public class PlayerManager : MonoBehaviour
         StartCoroutine(this.IncreasePlayerHealth(this.playerHealth + this.collectibleObtainHealthBoost));         
     }
 
-    public IEnumerator IncreasePlayerHealth(float targetHealth)
+
+    public IEnumerator IncreasePlayerHealth(float targetHealth, Action callback = null)
     {
-        if (playerHealth <= 0f)
+        if (playerHealth <= 0f && targetHealth >= 0f)
         {
             isHealthDecayPaused = false;
             // We should prevent this in our game design,
@@ -125,6 +125,14 @@ public class PlayerManager : MonoBehaviour
             yield return null;
         }
 
-        
+        if (callback != null)
+        {
+            callback();
+        }
+    }
+
+    public float GetPlayerHealth()
+    {
+        return this.playerHealth;
     }
 }

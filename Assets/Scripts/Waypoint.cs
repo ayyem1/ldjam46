@@ -20,28 +20,6 @@ public class Waypoint : MonoBehaviour
     private bool isPlayerInRange = false;
     private bool isDisabled = false;
 
-    private void Awake()
-    {
-        PlayerManager.OnPlayerHealthDepleted += DisableWaypoint;
-        PlayerManager.OnPlayerHealthRestoredFromEmpty += EnableWaypoint;
-    }
-
-    private void OnDestroy()
-    {
-        PlayerManager.OnPlayerHealthDepleted -= DisableWaypoint;
-        PlayerManager.OnPlayerHealthRestoredFromEmpty -= EnableWaypoint;
-    }
-
-    private void DisableWaypoint()
-    {
-        isDisabled = true;
-    }
-
-    private void EnableWaypoint()
-    {
-        isDisabled = false;
-    }
-
     private void Start()
     {
         dialogTextMesh.text = waypointInfo.dialog;
