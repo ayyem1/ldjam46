@@ -79,7 +79,7 @@ public class Waypoint : MonoBehaviour
 
     public void Interact()
     {
-        dialogTextMesh.gameObject.SetActive(true);
+        SubtitleManager.instance.DisplaySubtitle(this.waypointInfo.dialog);
         // TODO: Play Effects.
     }
 }
