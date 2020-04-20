@@ -14323,6 +14323,7 @@ MonoBehaviour:
   healthDecayRate: 0.01
   healthGrowthRate: 1
   playerGroundTransform: {fileID: 214813698}
+  isHealthDecayPaused: 0
   maxScale: 3
 --- !u!114 &1658509652
 MonoBehaviour:
@@ -19342,7 +19343,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: MasterWaypoint
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6966619659326001095, guid: 396b07114394cd3488e9466776cf50e6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8412174530551784947, guid: 396b07114394cd3488e9466776cf50e6,
+        type: 3}
+      propertyPath: m_Name
+      value: Character
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7342530526927204028, guid: 396b07114394cd3488e9466776cf50e6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 396b07114394cd3488e9466776cf50e6, type: 3}
 --- !u!1 &2102346408
 GameObject:
