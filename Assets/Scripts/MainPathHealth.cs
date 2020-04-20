@@ -45,6 +45,7 @@ public class MainPathHealth : MonoBehaviour
         else if (!hasPlayerLeftMainPath)
         {
             player.UnpauseHealthDecay();
+            hasPlayerLeftMainPath = true;
         }
 
         if (grantCoroutine == null)
