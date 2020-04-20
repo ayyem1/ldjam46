@@ -19,6 +19,7 @@ public class Waypoint : MonoBehaviour
     [SerializeField] public TextMesh waypointName = null;
     [SerializeField] public SpriteRenderer waypointSprite = null;
     [SerializeField] public GameObject displayBeforeInteraction = null;
+    [SerializeField] public GameObject tooltipIcon = null;
 
     private bool isPlayerInRange = false;
     private bool isDisabled = false;
@@ -37,6 +38,7 @@ public class Waypoint : MonoBehaviour
             return;
 
         OnWaypointEntered?.Invoke();
+        tooltipIcon.SetActive(!WasInteractedWith);
         isPlayerInRange = true;
     }
 
@@ -46,6 +48,7 @@ public class Waypoint : MonoBehaviour
             return;
 
         OnWayPointExited?.Invoke();
+        tooltipIcon.SetActive(false);
         isPlayerInRange = false;
     }
 
@@ -54,6 +57,7 @@ public class Waypoint : MonoBehaviour
         if (!isDisabled && Input.GetMouseButtonDown(1) && isPlayerInRange && !WasInteractedWith)
         {
             WasInteractedWith = true;
+            tooltipIcon.SetActive(false);
             Interact();
         }
     }
