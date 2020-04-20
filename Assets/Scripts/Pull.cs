@@ -23,6 +23,8 @@ public class Pull : MonoBehaviour
         PlayerManager.OnPlayerHealthDepleted += PausePullForce;
         PlayerManager.OnPlayerSpectating += StartSpectatingPullForce;
         PlayerManager.OnPlayerHealthRestoredFromEmpty += ResumePullForce;
+
+        EndGameSequence.OnEndGameSequenceStarted += PausePullForce;
     }
 
     private void PausePullForce()
@@ -93,5 +95,8 @@ public class Pull : MonoBehaviour
         PlayerManager.OnPlayerHealthDepleted -= PausePullForce;
         PlayerManager.OnPlayerSpectating -= StartSpectatingPullForce;
         PlayerManager.OnPlayerHealthRestoredFromEmpty -= ResumePullForce;
+
+        EndGameSequence.OnEndGameSequenceStarted -= PausePullForce;
+
     }
 }

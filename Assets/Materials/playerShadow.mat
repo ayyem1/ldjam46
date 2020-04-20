@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: playerShadow
-  m_Shader: {fileID: -6465566751694194690, guid: 5b2b15cc5f41b0e48adee46addb50337,
+  m_Shader: {fileID: -6465566751694194690, guid: 6dace5af641e2a84ba7061685fc8520c,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -66,7 +66,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_A7F1D6E8: 0.2646449
+    - Vector1_A7F1D6E8: 0.8
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -89,7 +89,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_8C799E3E: {r: 1, g: 1, b: 1, a: 0}
+    - Color_8C799E3E: {r: 0.1505874, g: 0.49629402, b: 0.6792453, a: 0}
     - Color_C816C371: {r: 0.1784992, g: 0, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

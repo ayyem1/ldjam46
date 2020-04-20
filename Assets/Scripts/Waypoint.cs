@@ -20,9 +20,23 @@ public class Waypoint : MonoBehaviour
     [SerializeField] public SpriteRenderer waypointSprite = null;
     [SerializeField] public GameObject displayBeforeInteraction = null;
     [SerializeField] public GameObject tooltipIcon = null;
+    [SerializeField] private GameObject parentGameObject = null;
 
     private bool isPlayerInRange = false;
     private bool isDisabled = false;
+
+    private void Awake()
+    {
+        EndGameSequence.OnEndGameSequenceStarted += DisableWaypointIfNotInteractedWith;
+    }
+
+    private void DisableWaypointIfNotInteractedWith()
+    {
+        if (WasInteractedWith)
+        {
+            parentGameObject.SetActive(false);
+        }
+    }
 
     private void Start()
     {

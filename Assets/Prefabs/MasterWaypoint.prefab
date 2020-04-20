@@ -381,6 +381,7 @@ MonoBehaviour:
   waypointSprite: {fileID: 8247314258774607209}
   displayBeforeInteraction: {fileID: 2973469118524033401}
   tooltipIcon: {fileID: 2023846179740251150}
+  parentGameObject: {fileID: 6966619659326001094}
 --- !u!1 &6966619658786067924
 GameObject:
   m_ObjectHideFlags: 0

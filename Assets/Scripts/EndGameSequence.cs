@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class EndGameSequence : MonoBehaviour
 {
+    public static Action OnEndGameSequenceStarted;
+
     [SerializeField]
     private GameObject endGameCameraObject = null;
     [SerializeField]
@@ -34,6 +35,7 @@ public class EndGameSequence : MonoBehaviour
 
     private void GoToEndGameState(GameObject playerObject)
     {
+        OnEndGameSequenceStarted?.Invoke();
         fader.FadeToBlack();
         fader.fadeToBlackComplete += this.TransitionToBirdsEyeView;
     }
