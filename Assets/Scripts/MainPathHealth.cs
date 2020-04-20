@@ -13,21 +13,36 @@ public class MainPathHealth : MonoBehaviour
 
     private IEnumerator grantCoroutine = null;
 
+    private bool hasPlayerLeftMainPath = false;
+
     private void Start()
     {
         player = playerObject.GetComponent<PlayerManager>();
 
         MeshRenderer renderer = GetComponent<MeshRenderer>();
         grantObjectBounds = renderer.bounds;
+
+        // If player starts on main path, they haven't left.
+        if (IsObjectInPullSource())
+        {
+            hasPlayerLeftMainPath = false;
+        }
+        else
+        {
+            // Otherwise, they are already outside.
+            hasPlayerLeftMainPath = true;
+        }
     }
+
 
     private void Update()
     {
         if (IsObjectInPullSource())
         {
             player.PauseHealthDecay();
+            hasPlayerLeftMainPath = false;
         }
-        else
+        else if (!hasPlayerLeftMainPath)
         {
             player.UnpauseHealthDecay();
         }

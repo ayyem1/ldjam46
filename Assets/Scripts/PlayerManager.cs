@@ -25,7 +25,7 @@ public class PlayerManager : MonoBehaviour
     // is in a waypoint or when they have lost all
     // of their health and are being dragged back
     // to the path.
-    public bool isHealthDecayPaused = false;
+    public bool IsHealthDecayPaused { get; private set; }
     private IEnumerator displayHealthDepletedEffect = null;
 
     public float maxScale = 3f;
@@ -40,12 +40,12 @@ public class PlayerManager : MonoBehaviour
 
     public void PauseHealthDecay()
     {
-        isHealthDecayPaused = true;
+        IsHealthDecayPaused = true;
     }
 
     public void UnpauseHealthDecay()
     {
-        isHealthDecayPaused = false;
+        IsHealthDecayPaused = false;
     }
 
     void Start()
@@ -63,7 +63,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if (isHealthDecayPaused == false)
+        bool isDepletedToZero = this.playerHealth > 0f && this.playerHealth - this.healthDecayRate <= 0f;
+        if (IsHealthDecayPaused == false)
         {
             this.playerHealth -= this.healthDecayRate;
         }
@@ -73,10 +74,10 @@ public class PlayerManager : MonoBehaviour
             this.playerHealth = 0f;
         }
         this.UpdateGroundTransform();
-        if (this.playerHealth <= 0f && !isHealthDecayPaused)
+        if (isDepletedToZero)
         {
             // Player's health just became depleted.
-            isHealthDecayPaused = true;
+            IsHealthDecayPaused = true;
             OnPlayerHealthDepleted?.Invoke();
             this.displayHealthDepletedEffect = DisplayHealthDepletedEffects();
             StartCoroutine(this.displayHealthDepletedEffect);
@@ -105,7 +106,7 @@ public class PlayerManager : MonoBehaviour
 
         if (playerHealth <= 0f && targetHealth >= 0f)
         {
-            isHealthDecayPaused = false;
+            IsHealthDecayPaused = false;
             // We should prevent this in our game design,
             // but if a player collects health while we are
             // playing the health depleted animation, we will
