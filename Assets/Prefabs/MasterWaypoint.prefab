@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6966619657960079117}
   - component: {fileID: 6966619657960079119}
   - component: {fileID: 6966619657960079118}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 2, y: 3.8764, z: 2}
   m_Children: []
   m_Father: {fileID: 6966619659326001088}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &6966619657960079119
 BoxCollider:
@@ -304,7 +304,6 @@ Transform:
   m_Children:
   - {fileID: 6966619659116999944}
   - {fileID: 6966619658786067920}
-  - {fileID: 6966619659463233282}
   - {fileID: 6966619657960079117}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -371,47 +370,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d04705a0f2d4a80449cd43fe32527a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &6966619659463233281
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6966619659463233282}
-  - component: {fileID: 6966619659463233283}
-  m_Layer: 10
-  m_Name: Collider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6966619659463233282
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6966619659463233281}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.43606186, y: 0.7404213, z: 0.6980603}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6966619659326001088}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6966619659463233283
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6966619659463233281}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 3.27, z: 0.18}
-  m_Center: {x: 0, y: 0, z: -0.82}

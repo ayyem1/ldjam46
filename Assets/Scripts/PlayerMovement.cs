@@ -11,10 +11,12 @@ public class PlayerMovement : MonoBehaviour, IPullable
 
     private Vector3 playerVelocity;
     private Vector3 desiredPlayerVelocity;
+    private float desiredMaxSpeedChange;
+
     private Vector3 pullVelocity;
 
     private bool isMovementInputPaused;
-    private Collider collider = null;
+    private Collider movementCollider = null;
 
     public Rigidbody Body { get; private set; }
 
@@ -30,14 +32,14 @@ public class PlayerMovement : MonoBehaviour, IPullable
     {
         Body.velocity = Vector3.zero;
         Body.angularVelocity = Vector3.zero;
-        collider.enabled = false;
+        movementCollider.enabled = false;
 
         isMovementInputPaused = true;
     }
     
     private void ResumeVelocityMovement()
     {
-        collider.enabled = true;
+        movementCollider.enabled = true;
         isMovementInputPaused = false;
     }
 
@@ -50,7 +52,7 @@ public class PlayerMovement : MonoBehaviour, IPullable
     private void Start()
     {
         Body = GetComponent<Rigidbody>();
-        collider = GetComponent<Collider>();
+        movementCollider = GetComponent<Collider>();
     }
 
     private void AccelerateTowardsDesiredVelocity(Vector3 desiredVelocity, float maxSpeedChange)
@@ -91,7 +93,7 @@ public class PlayerMovement : MonoBehaviour, IPullable
             {
                 Vector3 desiredDirection = hit.point - this.transform.position;
                 desiredPlayerVelocity = desiredDirection.normalized * maxSpeed;
-                
+                desiredMaxSpeedChange = this.maxAcceleration;
                 //if (oldWayEngaged == true)
                 //{
                 //    this.transform.localPosition += this.playerVelocity * Time.deltaTime;
@@ -101,6 +103,7 @@ public class PlayerMovement : MonoBehaviour, IPullable
         else if (this.playerVelocity.magnitude > 0 || this.pullVelocity.magnitude > 0)
         {
             desiredPlayerVelocity = pullVelocity;
+            desiredMaxSpeedChange = this.maxDeceleration;
             //if (oldWayEngaged == true)
             //{
             //    this.transform.localPosition += this.playerVelocity * Time.deltaTime;
@@ -118,7 +121,7 @@ public class PlayerMovement : MonoBehaviour, IPullable
         //{
         //    Body.velocity = Vector3.zero;
         //}
-        float maxSpeedChange = this.maxDeceleration * Time.deltaTime;
+        float maxSpeedChange = desiredMaxSpeedChange * Time.deltaTime;
 
         this.AccelerateTowardsDesiredVelocity(desiredPlayerVelocity, maxSpeedChange);
         if (this.playerVelocity.magnitude < 0)
