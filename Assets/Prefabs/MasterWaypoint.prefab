@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d604e31b61237e24ebd70569115932cf, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -381,8 +381,9 @@ MonoBehaviour:
   waypointName: {fileID: 6966619658786067925}
   waypointSprite: {fileID: 8247314258774607209}
   displayBeforeInteraction: {fileID: 2973469118524033401}
-  tooltipIcon: {fileID: 2023846179740251150}
+  tooltipIcon: {fileID: 8769030299636984987}
   parentGameObject: {fileID: 6966619659326001094}
+  fadeTime: 1
   audio: {fileID: 126734789830736584}
 --- !u!82 &126734789830736584
 AudioSource:
@@ -701,7 +702,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6966619659326001088}
-  - component: {fileID: 5785103614493942318}
   - component: {fileID: 3444538881347648927}
   m_Layer: 0
   m_Name: MasterWaypoint
@@ -731,18 +731,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5785103614493942318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6966619659326001094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d04705a0f2d4a80449cd43fe32527a56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &3444538881347648927
 MeshRenderer:
   m_ObjectHideFlags: 0
