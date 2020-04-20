@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PathText4
   m_EditorClassIdentifier: 
   waypointName: 
-  dialog: Why am I so upset about losing things that always made me so upset?
-  waypointImage: {fileID: 21300000, guid: 320429bf0af3ad749bfbfcacb20797f0, type: 3}
+  dialog: "If I start now I won\u2019t be able to catch up. "
+  waypointImage: {fileID: 21300000, guid: 744d0cfab4f0c4e4eb2cdb82a6c964f2, type: 3}
