@@ -11,11 +11,6 @@ public class EndGameSequence : MonoBehaviour
     [SerializeField]
     private FadeTransition fader = null;
 
-    [SerializeField]
-    private Terrain[] terrains;
-    [SerializeField]
-    private Material finishMaterial;
-
     private bool showingEndGame = false;
 
     // Update is called once per frame
@@ -48,12 +43,6 @@ public class EndGameSequence : MonoBehaviour
     private void TransitionToBirdsEyeView()
     {
         fader.fadeToBlackComplete -= this.TransitionToBirdsEyeView;
-
-        foreach (Terrain curTerrain in this.terrains)
-        {
-            curTerrain.materialTemplate = this.finishMaterial;
-        }
-
         this.endGameCameraObject.SetActive(true);
         fader.FadeFromBlack();
         fader.fadeFromBlackComplete += this.FinalizeEndgameState;
