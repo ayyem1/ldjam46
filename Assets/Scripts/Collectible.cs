@@ -8,6 +8,20 @@ public class Collectible : MonoBehaviour
 
     public CollectibleState state = CollectibleState.Active;
 
+    [SerializeField]
+    private MeshRenderer meshRenderer;
+
+    [SerializeField]
+    private ParticleSystem particles;
+
+    const string alphaThresholdName = "Vector1_49FF6D3F";
+    private float fillRate = 3.0f;
+
+    private void Start()
+    {
+        this.meshRenderer.material.SetFloat(alphaThresholdName, 1.0f);
+    }
+
     public void Update()
     {
         switch (this.state)
@@ -28,6 +42,7 @@ public class Collectible : MonoBehaviour
     {
         if (this.state == CollectibleState.Active && other.tag == "Player")
         {
+            StartCoroutine(this.ExecuteCollectionEffects());
             this.CollectibleObtained(other.gameObject);
         }
     }
@@ -42,8 +57,17 @@ public class Collectible : MonoBehaviour
         {
             player.CollectibleObtained();
         }
+    }
 
-        // Temp: Remove this. Destroying the object for now.
-        Destroy(this.gameObject);
+    private IEnumerator ExecuteCollectionEffects()
+    {
+        this.particles.Play();
+
+        while (this.meshRenderer.material.GetFloat(alphaThresholdName) > 0.0f)
+        {
+            float currentFloat = this.meshRenderer.material.GetFloat(alphaThresholdName);
+            this.meshRenderer.material.SetFloat(alphaThresholdName, currentFloat - (Time.deltaTime * this.fillRate));
+            yield return null;
+        }
     }
 }
