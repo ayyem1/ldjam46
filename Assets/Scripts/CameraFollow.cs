@@ -45,6 +45,11 @@ public class CameraFollow : MonoBehaviour
 
     private void UpdateCameraVerticalPosition()
     {
+        if (this.playerCharacter.Body.velocity.z <= 0)
+        {
+            return;
+        }
+
         Vector3 worldSpaceCenteredPosition = this.thisCamera.ViewportToWorldPoint(new Vector3(0.5f, this.cameraDistance, this.verticalViewportThreshold));
 
         Vector3 shiftVector = new Vector3(0, 0, this.playerCharacter.transform.position.z - worldSpaceCenteredPosition.z);
