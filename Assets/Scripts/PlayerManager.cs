@@ -25,7 +25,7 @@ public class PlayerManager : MonoBehaviour
     // is in a waypoint or when they have lost all
     // of their health and are being dragged back
     // to the path.
-    private bool isHealthDecayPaused = false;
+    public bool isHealthDecayPaused = false;
     private IEnumerator displayHealthDepletedEffect = null;
 
     public float maxScale = 3f;
@@ -96,7 +96,13 @@ public class PlayerManager : MonoBehaviour
 
     public void CollectibleObtained()
     {
-        StartCoroutine(this.IncreasePlayerHealth(this.playerHealth + this.collectibleObtainHealthBoost));         
+        float targetHealth = this.playerHealth + this.collectibleObtainHealthBoost;
+        if (targetHealth > this.maxPlayerHealth)
+        {
+            targetHealth = this.maxPlayerHealth;
+        }
+
+        StartCoroutine(this.IncreasePlayerHealth(targetHealth));         
     }
 
 
@@ -119,6 +125,8 @@ public class PlayerManager : MonoBehaviour
             if (this.playerHealth > this.maxPlayerHealth)
             {
                 this.playerHealth = this.maxPlayerHealth;
+                this.UpdateGroundTransform();
+                break;
             }
 
             this.UpdateGroundTransform();
