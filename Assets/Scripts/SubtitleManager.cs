@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-
+using UnityEngine.UI;
 public class SubtitleManager : MonoBehaviour
 {
     public static SubtitleManager instance;
@@ -11,9 +10,9 @@ public class SubtitleManager : MonoBehaviour
     private float fadeRate = 0.5f;
 
     [SerializeField]
-    private TextMeshProUGUI messageMesh;
+    private Text messageText;
     [SerializeField]
-    private TextMeshProUGUI titleMesh;
+    private Text titleText;
 
     // Start is called before the first frame update
     void Start()
@@ -28,21 +27,21 @@ public class SubtitleManager : MonoBehaviour
 
     public void DisplaySubtitle(string subtitleText)
     {
-        this.messageMesh.text = subtitleText;
+        this.messageText.text = subtitleText;
 
-        StartCoroutine(this.CycleFade(this.messageMesh));
+        StartCoroutine(this.CycleFade(this.messageText));
     }
 
     public void DisplayTitle()
     {
-        StartCoroutine(this.CycleFade(this.titleMesh));
+        StartCoroutine(this.CycleFade(this.titleText));
     }
 
-    private IEnumerator CycleFade(TextMeshProUGUI textMesh)
+    private IEnumerator CycleFade(Text textObject)
     {
         for (float i = 0; i < 1; i += Time.fixedDeltaTime * this.fadeRate)
         {
-            textMesh.color = new Color(textMesh.color.r, textMesh.color.b, textMesh.color.g, i);
+            textObject.color = new Color(textObject.color.r, textObject.color.b, textObject.color.g, i);
             yield return null;
         }
         
@@ -50,7 +49,7 @@ public class SubtitleManager : MonoBehaviour
 
         for (float i = 1; i >= 0; i -= Time.fixedDeltaTime * this.fadeRate)
         {
-            textMesh.color = new Color(textMesh.color.r, textMesh.color.b, textMesh.color.g, i);
+            textObject.color = new Color(textObject.color.r, textObject.color.b, textObject.color.g, i);
             yield return null;
         }
     }
